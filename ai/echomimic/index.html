@@ -1,0 +1,296 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>EchoMimic: Lifelike Audio-Driven Portrait Animations</title>
+<link href="./asserts/style.css" rel="stylesheet">
+<style>@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Light.otf');
+        font-weight: 300;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Regular.otf');
+        font-weight: 400;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Medium.otf');
+        font-weight: 500;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-SemiBold.otf');
+        font-weight: 600;
+        font-display: swap;
+      }</style><style id="monica-reading-highlight-style">
+        .monica-reading-highlight {
+          animation: fadeInOut 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+          0%, 100% { background-color: transparent; }
+          30%, 70% { background-color: rgba(2, 118, 255, 0.20); }
+        }
+      </style></head>
+
+<body monica-locale="zh_CN" monica-version="5.5.1" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
+<div class="content">
+  <h1><span><img src="./asserts/logo.png" style="height: 50px;"></span><strong><br>Lifelike Audio-Driven Portrait Animations through Editable Landmark Conditioning</strong></h1>
+  <div class="gallery" style="margin-bottom: 0;">
+    <div class="row">
+      <video width="975" height="195" controls>
+        <source src="asserts/demo_videos/welcome_demo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row" style="justify-content: space-evenly; padding: 0; margin-bottom: 0;">
+      <figure style="width: 100%;margin: 25 0 0; text-align: center;">
+        <img src="./asserts/teaser.png" style="height: 400px; width: auto;">
+      </figure>
+    </div>
+  </div>
+
+  <p id="authors" class="serif">
+    <a>Zhiyuan Chen<sup>*</sup></a>
+    <a>Jiajiong Cao<sup>*<dag></dag></sup></a>
+    <a>Zhiquan Chen<sup></sup></a>
+    <a>Yuming Li<sup></sup></a>
+    <a>Chenguang Ma<sup></sup></a> <br>
+    <span style="font-size: 1.0em; margin-top: 0.8em">
+      <a><sup>*</sup>Equal Contribution.</a>
+    <br>
+    <span style="font-size: 1.0em; margin-top: 0.8em">
+      <a>Terminal Technology Department, Alipay, Ant Group.</a>
+    </span>
+  </p>
+
+  <font size="+2">
+    <!-- <div style="text-align: center; display: flex; justify-content: space-between; margin: 20px 60px;"> -->
+    <div style="text-align: center; display: flex; justify-content: space-between; margin: 10px 160px; font-size:20">
+      <a target="_blank" ,="" href="https://arxiv.org/abs/2407.08136">
+        <img src="./asserts/th.png" alt="arxiv" ,="" style="width: 25px;">[Paper]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://github.com/BadToBest/EchoMimic">
+        <img src="./asserts/github.png" alt="github" ,="" style="width: 25px;">[Github]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://huggingface.co/BadToBest/EchoMimic">
+        <img src="./asserts/hugface.png" alt="huggingface" ,="" style="width: 25px;">[HuggingFace]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://www.modelscope.cn/models/BadToBest/EchoMimic">
+        <img src="./asserts/modelscope.png" alt="modelscope" ,="" style="width: 25px;">[ModelScope]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://github.com/BadToBest/EchoMimic/blob/main/assets/echomimic.png">
+        <img src="./asserts/wechat.png" alt="wechat" ,="" style="width: 25px;">[WeChat]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+  </font>
+
+</div>
+
+<div class="content">
+  <h2 style="text-align:center"><strong>Abstract</strong></h2>
+  <p><b><span style="color: #8eadde">EchoMimic</span></b> is capable of generating portrait videos not only by audios and facial landmarks individually, but also by a combination of both audios and selected facial landmarks.</p>
+  <div id="teasers">
+      <img src="./asserts/algo_framework.png" ,="" style="width: 100%;">
+      <figcaption></figcaption>
+  </div>
+  <p>
+    The area of portrait image animation, propelled by audio input, has witnessed notable progress in the generation of lifelike and dynamic portraits. Conventional methods are limited to utilizing either audios or facial key points to drive images into videos, while they can yield satisfactory results, certain issues exist. For instance, methods driven solely by audios can be unstable at times due to the relatively weaker audio signal, while methods driven exclusively by facial key points, although more stable in driving, can result in unnatural outcomes due to the excessive control of key point information. In addressing the previously mentioned challenges, in this paper, we introduce a novel approach which we named EchoMimic. EchoMimic is concurrently trained using both audios and facial landmarks. Through the implementation of a novel training strategy, EchoMimic is capable of generating portrait videos not only by audios and facial landmarks individually, but also by a combination of both audios and selected facial landmarks. EchoMimic has been comprehensively compared with alternative algorithms across various public datasets and our collected dataset, showcasing superior performance in both quantitative and qualitative evaluations. Additional visualization and access to the source code can be located on the EchoMimic project page.
+
+  </p>
+</div>
+
+<div class="content">
+  <h2 style="text-align: center;"><strong>Gallery</strong></h2>
+  <h3>Audio Driven (Chinese)</h3>
+  <div class="gallery">
+    <div class="row">
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/chinese/ch_01.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/chinese/ch_02.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/chinese/ch_03.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/chinese/ch_04.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/chinese/ch_05.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3>Audio Driven (English)</h3>
+    <div class="row">
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/english/en_01.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/english/en_02.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/english/en_03.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/english/en_04.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/english/en_05.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3>Audio Driven (Sing)</h3>
+    <div class="row">
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/singing/s_02.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/singing/s_03.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/singing/s_05.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/singing/s_01.mp4" type="video/mp4">
+      </video>
+      <video width="195" height="195" controls>
+        <source src="asserts/demo_videos/singing/s_04.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Landmark Driven</strong></h3>
+    <div class="row">
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/pose_only/po_01.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/pose_only/po_02.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/pose_only/po_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/pose_only/po_04.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/pose_only/po_05.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/pose_only/po_06.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Audio + Selected Landmark Driven</strong></h3>
+    <div class="row">
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/audio_pose/ap_01.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/audio_pose/ap_02.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/audio_pose/ap_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/audio_pose/ap_04.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/audio_pose/ap_05.mp4" type="video/mp4">
+      </video>
+      <video width="324" height="162" controls>
+        <source src="asserts/demo_videos/audio_pose/ap_06.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Video Evaluation Results on HDTF Dataset</strong></h3>
+    <div class="row">
+      <video width="990" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_01.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="990" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_02.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="990" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Video Evaluation Results Provided by Third Party <a href="https://mp.weixin.qq.com/s/OyZLyvUu_Qi0IRdXLNTH7A"><b>(Link)</b></a></strong></h3>
+    <div class="row">
+      <video width="990" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/comparison_3rd.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Reference Images Used in Demos</strong></h3>
+    <div class="row">
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/000.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/001.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/002.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/003.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/004.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/005.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/006.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/007.png" style="height: 121px; width: auto;">
+      </figure>
+    </div>
+    <div class="row">
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/008.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/009.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/010.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/011.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/012.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/013.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/014.png" style="height: 121px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/015.png" style="height: 121px; width: auto;">
+      </figure>
+    </div>
+
+  </div>
+</div>
+<div class="content">
+  <h2 style="text-align:center; margin: 0 auto;"><strong>BibTex</strong></h2>
+  <code>@article{chen2024echomimic,<br>
+      title={EchoMimic: Lifelike Audio-Driven Portrait Animations through Editable Landmark Conditioning},<br>
+      author={Zhiyuan Chen, Jiajiong Cao, Zhiquan Chen, Yuming Li, Chenguang Ma},<br>
+      year={2024},<br>
+      eprint={2407.08136},<br>
+      archivePrefix={arXiv},<br>
+      primaryClass={cs.CV}<br>
+   </code>
+</div>
