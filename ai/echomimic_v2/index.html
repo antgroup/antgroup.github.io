@@ -1,1 +1,347 @@
-EchoMimicV2 Test
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>EchoMimicV2: Towards Striking, Simplified, and Semi-Body Human Animation</title>
+<link href="./asserts/style.css" rel="stylesheet">
+<style>@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Light.otf');
+        font-weight: 300;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Regular.otf');
+        font-weight: 400;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Medium.otf');
+        font-weight: 500;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-SemiBold.otf');
+        font-weight: 600;
+        font-display: swap;
+      }</style><style id="monica-reading-highlight-style">
+        .monica-reading-highlight {
+          animation: fadeInOut 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+          0%, 100% { background-color: transparent; }
+          30%, 70% { background-color: rgba(2, 118, 255, 0.20); }
+        }
+      </style></head>
+      
+<body monica-locale="zh_CN" monica-version="5.5.1" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
+<div class="content">
+  <h2 style="text-align:center"><strong>EchoMimic Series</strong></h2> 
+  <b>EchoMimicV1</b>: Lifelike Audio-Driven Portrait Animations through Editable Landmark Conditioning. <a href="https://github.com/antgroup/echomimic"><b>GitHub</b></a>
+  <br>
+  <b>EchoMimicV2</b>: Towards Striking, Simplified, and Semi-Body Human Animation.</b> <a href="https://github.com/antgroup/echomimic_v2"><b>GitHub</b></a>
+</div>
+
+<div class="content">
+  <h1><span><img src="./asserts/logo.png" style="height: 50px;"></span><strong><br>Towards Striking, Simplified, and Semi-Body<br>Human Animation</strong></h1>
+  <div class="gallery" style="margin-bottom: 0;">
+    <div class="row">
+      <video width="auto" height="165" controls>
+        <source src="./asserts/demo_videos/echomimicv2_demo_video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row" style="justify-content: space-evenly; padding: 0; margin-bottom: 0;">
+      <figure style="width: 100%;margin: 25 0 0; text-align: center;">
+        <img src="./asserts/teaser.png" style="height: 450px; width: auto;">
+      </figure>
+    </div> 
+  </div>
+
+  <p id="authors" class="serif">
+    <a>Rang Meng</a>
+    <a>Xingyu Zhang</a>
+    <a>Yuming Li</a>
+    <a>Chenguang Ma</a><br>
+    <span style="font-size: 1.0em; margin-top: 0.8em; line-height:2;">
+      <a>Terminal Technology Department, Alipay, Ant Group.</a>
+    </span>
+  </p>
+
+  <font size="+2">
+    <!-- <div style="text-align: center; display: flex; justify-content: space-between; margin: 20px 60px;"> -->
+    <div style="text-align: center; display: flex; justify-content: space-between; margin: 10px 160px; font-size:20">
+      <a target="_blank" ,="" href="https://arxiv.org/abs/2411.10061">
+        <img src="./asserts/arxiv.png" alt="arxiv" ,="" style="width: 25px;">[Paper]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://github.com/antgroup/echomimic_v2">
+        <img src="./asserts/github.png" alt="github" ,="" style="width: 25px;">[Github]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://arxiv.org/abs/2411.10061">
+        <img src="./asserts/hugface.png" alt="huggingface" ,="" style="width: 25px;">[HuggingFace]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://arxiv.org/abs/2411.10061">
+        <img src="./asserts/modelscope.png" alt="modelscope" ,="" style="width: 25px;">[ModelScope]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://arxiv.org/abs/2411.10061">
+        <img src="./asserts/wechat.png" alt="wechat" ,="" style="width: 25px;">[WeChat]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+  </font>
+
+</div>
+
+<div class="content">
+  <h2 style="text-align:center"><strong>Abstract</strong></h2> 
+  <p><b><span style="color: #8eadde">EchoMimicV2</span></b> utilizes a reference image, an audio clip, and a sequence of hand pose to generate a high-quality animation video, ensuring coherence between audio content and half-body movements.</p>
+  <div id="teasers">
+      <img src="./asserts/algo_framework.png" ,="" style="width: 100%;">
+      <figcaption></figcaption>
+  </div>
+  <p>
+    Recent work on human animation usually involves audio, pose, or movement maps conditions, thereby achieves vivid animation quality. However, these methods often face practical challenges due to extra control conditions, cumbersome condition injection modules, or limitation to head region driving. Hence, we ask if it is possible to achieve striking half-body human animation while simplifying unnecessary conditions. To this end, we propose a half-body human animation method, dubbed <b>EchoMimicV2</b>, that leverages a novel <b>Audio-Pose Dynamic Harmonization</b> strategy, including <b>Pose Sampling</b> and <b>Audio Diffusion</b>, to enhance half-body details, facial and gestural expressiveness, and meanwhile reduce conditions redundancy. To compensate for the scarcity of half-body data, we utilize <b>Head Partial Attention</b> to seamlessly accommodate headshot data into our training framework, which can be omitted during inference, providing a free lunch for animation. Furthermore, we design the <b>Phase-specific Denoising Loss</b> to guide motion, detail, and low-level quality for animation in specific phases, respectively. Besides, we also present a novel benchmark for evaluating the effectiveness of half-body human animation. Extensive experiments and analyses demonstrate that EchoMimicV2 surpasses existing methods in both quantitative and qualitative evaluations.
+  </p>
+</div>
+
+<div class="content">
+  <h2 style="text-align: center;"><strong>Gallery</strong></h2>
+  <div class="gallery">
+    <h3><strong>Chinese Driven Audio</strong></h3>
+    <div class="row">
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_01.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_02.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_04.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_05.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_06.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_07.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_08.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/chinese/ch_09.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>English Driven Audio</strong></h3>
+    <div class="row">
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_01.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_02.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_04.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_05.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_06.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_07.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_08.mp4" type="video/mp4">
+      </video>
+      <video width="333" height="auto" controls>
+        <source src="asserts/demo_videos/English/en_09.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Comparision with Pose-Driven Algorithms</strong></h3>
+    <div class="row">
+      <video width="500" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_01.mp4" type="video/mp4">
+      </video>
+      <video width="500" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_02.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="500" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_03.mp4" type="video/mp4">
+      </video>
+      <video width="500" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_04.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Comparision with Audio-Driven Algorithms</strong></h3>
+    <div class="row">
+      <video width="500" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_05.mp4" type="video/mp4">
+      </video>
+      <video width="500" height="auto" controls>
+        <source src="asserts/demo_videos/comparison/compare_06.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Reference Images Generated by FLUX</strong></h3>
+    <div class="row">
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0010.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0033.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0035.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0048.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0057.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0077.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0101.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0140.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0163.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0175.png" style="height: 100px; width: auto;">
+      </figure>
+    </div>
+    <div class="row">
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0201.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0212.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0215.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0247.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0253.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0269.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0284.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0287.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0430.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/woman/0588.png" style="height: 100px; width: auto;">
+      </figure>
+    </div>
+    <div class="row">
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0001.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0003.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0010.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0017.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0025.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0055.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0056.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0101.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0119.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0154.png" style="height: 100px; width: auto;">
+      </figure>
+    </div>
+    <div class="row">
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0170.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0177.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0181.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0211.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0252.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0324.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0398.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0415.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/0424.png" style="height: 100px; width: auto;">
+      </figure>
+      <figure style="width: 100%;margin: 0 0; text-align: center;">
+        <img src="./asserts/demo_videos/ref_imgs/man/1168.png" style="height: 100px; width: auto;">
+      </figure>
+    </div>
+    
+  </div>
+</div>
+<div class="content">
+  <h2 style="text-align:center; margin: 0 auto;"><strong>BibTex</strong></h2>
+  <code>@article{meng2024echomimic,<br>
+      title={EchoMimicV2: towards Stable, Striking, and Semi-Body Human Animation},<br> 
+      author={Rang Meng, Xingyu Zhang, Yuming Li, Chenguang Ma},<br>
+      year={2024},<br>
+      eprint={2411.10061},<br>
+      archivePrefix={arXiv},<br>
+      primaryClass={cs.CV}<br>
+}
+   </code>
+</div>
