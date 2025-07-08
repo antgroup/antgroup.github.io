@@ -1,1 +1,205 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<title>EchoMimicV3: 1.3B Parameters are All You Need for Unified Multi-Modal and Multi-Task Human Animation</title>
+<link href="./asserts/style.css" rel="stylesheet">
+<style>@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Light.otf');
+        font-weight: 300;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Regular.otf');
+        font-weight: 400;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-Medium.otf');
+        font-weight: 500;
+        font-display: swap;
+      }
+@font-face {
+        font-family: 'monica-ext-font_YIBBBFG';
+        src: url('chrome-extension://ofpnmcalabcbjgholdjcjblkibolbppb/static/fonts/Hind-SemiBold.otf');
+        font-weight: 600;
+        font-display: swap;
+      }</style><style id="monica-reading-highlight-style">
+        .monica-reading-highlight {
+          animation: fadeInOut 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+          0%, 100% { background-color: transparent; }
+          30%, 70% { background-color: rgba(2, 118, 255, 0.20); }
+        }
+      </style></head>
+      
+<body monica-locale="zh_CN" monica-version="5.5.1" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
+<div class="content">
+  <h2 style="text-align:center"><strong>EchoMimic Series</strong></h2> 
+  <b>EchoMimicV1</b>: Lifelike Audio-Driven Portrait Animations through Editable Landmark Conditioning. <a href="https://github.com/antgroup/echomimic"><b>GitHub</b></a>
+  <br>
+  <b>EchoMimicV2</b>: Towards Striking, Simplified, and Semi-Body Human Animation.</b> <a href="https://github.com/antgroup/echomimic_v2"><b>GitHub</b></a>
+  <br>
+  <b>EchoMimicV3</b>: 1.3B Parameters are All You Need for Unified Multi-Modal and Multi-Task Human Animation.</b> <a href="https://github.com/antgroup/echomimic_v3"><b>GitHub</b>
+  </a>
+</div>
+
+<div class="content">
+  <h1><span><img src="./asserts/logo.png" style="height: 50px;"></span><strong><br>1.3B Parameters are All You Need for Unified<br>Multi-Modal and
+Multi-Task Human Animation</strong></h1>
+  <div class="gallery" style="margin-bottom: 0;">
+    <div class="row">
+      <video width="1000" height="auto" controls>
+        <source src="./asserts/demo_videos/teaser/teaser.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row" style="justify-content: space-evenly; padding: 0; margin-bottom: 0;">
+      <figure style="width: 100%;margin: 25 0 0; text-align: center;">
+        <img src="./asserts/teaser.jpg" style="height: 800px; width: auto;">
+      </figure>
+    </div> 
+  </div>
+
+  <p id="authors" class="serif">
+    <a>Rang Meng</a>
+    <a>Yan Wang</a>
+    <a>Weipeng Wu</a>
+    <a>Ruobing Zheng</a>
+    <a>Yuming Li</a>
+    <a>Chenguang Ma</a><br>
+    <span style="font-size: 1.0em; margin-top: 0.8em; line-height:2;">
+      <a>Terminal Technology Department, Alipay, Ant Group.</a>
+    </span>
+  </p>
+
+  <font size="+2">
+    <!-- <div style="text-align: center; display: flex; justify-content: space-between; margin: 20px 60px;"> -->
+    <div style="text-align: center; display: flex; justify-content: space-between; margin: 10px 160px; font-size:20">
+      <a target="_blank" ,="" href="https://arxiv.org/pdf/2507.03905">
+        <img src="./asserts/arxiv.png" alt="arxiv" ,="" style="width: 25px;">[Paper]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://github.com/antgroup/echomimic_v3">
+        <img src="./asserts/github.png" alt="github" ,="" style="width: 25px;">[Github]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://github.com/antgroup/echomimic_v3">
+        <img src="./asserts/hugface.png" alt="huggingface" ,="" style="width: 25px;">[HuggingFace]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://github.com/antgroup/echomimic_v3/">
+        <img src="./asserts/modelscope.png" alt="modelscope" ,="" style="width: 25px;">[ModelScope]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a target="_blank" ,="" href="https://github.com/antgroup/echomimic_v3">
+        <img src="./asserts/wechat.png" alt="wechat" ,="" style="width: 25px;">[WeChat]
+      </a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+  </font>
+
+</div>
+
+<div class="content">
+  <h2 style="text-align:center"><strong>Abstract</strong></h2> 
+  <div id="teasers">
+      <img src="./asserts/algo_framework.jpg" ,="" style="width: 100%;">
+      <figcaption></figcaption>
+  </div>
+  <p>
+    <b><span style="color: #8eadde">EchoMimicV3</span></b> makes human animation <b>Faster</b>, <b>Higher</b> in quality, <b>Stronger</b> in generalization, and makes various tasks together in one model. To address this, we dive into video generation models and discover that the devillies in the details: 1) Inspired by MAE, we propose <b>a novel unified Multi-Task paradigm for human animation</b>, treating diverse generation tasks as spatial-temporal local reconstructions, requiring modifications only on the input side; 2) Given the interplay and division among multi-modal conditions including text, image, and audio, we introduce <b>a multi-modal decoupled cross-attention module</b> to fuse multi-modals in a divide-and-conquer manner; 3) We propose <b>a new SFT+Reward alternating training paradigm</b>, enabling the minimal model with <b>1.3B parameters</b> to achieve generation quality comparable to models with 10 times the parameters count. Through these innovations, our work paves the way for efficient, high-quality, and versatile digital human generation, addressing both performance and practicality challenges in the field. Extensive experiments demonstrate that EchoMimicV3 outperforms existing models in both facial and semi-body video generation, providing precise text-based control for creating videos in a wide range of scenarios, such as podcasts, karaoke, dynamic scenes, multi-aspect ratios, and so on.
+  </p>
+</div>
+
+<div class="content">
+  <h2 style="text-align: center;"><strong>Gallery</strong></h2>
+  <div class="gallery">
+    <h3><strong>Chinese Driven Audio</strong></h3>
+    <div class="row">
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_man_01.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_man_02.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_man_03.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_man_04.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_woman_01.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_woman_02.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_woman_04.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/chinese/demo_ch_woman_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>English Driven Audio</strong></h3>
+    <div class="row">
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/english/demo_en_man_01.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/english/demo_en_woman_01.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/english/demo_en_man_02.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="437" controls>
+        <source src="asserts/demo_videos/english/demo_en_woman_02.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Singing</strong></h3>
+    <div class="row">
+      <video width="250" height="250" controls>
+        <source src="asserts/demo_videos/sing/demo_music_01.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="250" controls>
+        <source src="asserts/demo_videos/sing/demo_music_02.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="250" controls>
+        <source src="asserts/demo_videos/sing/demo_music_03.mp4" type="video/mp4">
+      </video>
+      <video width="250" height="250" controls>
+        <source src="asserts/demo_videos/sing/demo_music_04.mp4" type="video/mp4">
+      </video>
+    </div>
+    <h3><strong>Cartoon</strong></h3>
+    <div class="row">
+      <video width="168" height="auto" controls>
+        <source src="asserts/demo_videos/cartoon/demo_cartoon_01.mp4" type="video/mp4">
+      </video>
+      <video width="230" height="auto" controls>
+        <source src="asserts/demo_videos/cartoon/demo_cartoon_02.mp4" type="video/mp4">
+      </video>
+      <video width="230" height="auto" controls>
+        <source src="asserts/demo_videos/cartoon/demo_cartoon_04.mp4" type="video/mp4">
+      </video>
+      <video width="141" height="auto" controls>
+        <source src="asserts/demo_videos/cartoon/demo_cartoon_05.mp4" type="video/mp4">
+      </video>
+      <video width="230" height="auto" controls>
+        <source src="asserts/demo_videos/cartoon/demo_cartoon_03.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <h2 style="text-align:center; margin: 0 auto;"><strong>BibTex</strong></h2>
+  <code>@article{meng2025echomimicv3,<br>
+      title={EchoMimicV3: 1.3B Parameters are All You Need for Unified Multi-Modal and Multi-Task Human Animation},<br> 
+      author={Rang Meng, Yan Wang, Weipeng Wu, Ruobing Zheng, Yuming Li, Chenguang Ma},<br>
+      year={2025},<br>
+      eprint={2507.03905},<br>
+      archivePrefix={arXiv},<br>
+      primaryClass={cs.CV}<br>
+}
+   </code>
+</div>
