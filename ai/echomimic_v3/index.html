@@ -105,7 +105,7 @@ Multi-Task Human Animation</strong></h1>
       <figcaption></figcaption>
   </div>
   <p>
-    <b><span style="color: #8eadde">EchoMimicV3</span></b> makes human animation <b>Faster</b>, <b>Higher</b> in quality, <b>Stronger</b> in generalization, and makes various tasks together in one model. To address this, we dive into video generation models and discover that the devillies in the details: 1) Inspired by MAE, we propose <b>a novel unified Multi-Task paradigm for human animation</b>, treating diverse generation tasks as spatial-temporal local reconstructions, requiring modifications only on the input side; 2) Given the interplay and division among multi-modal conditions including text, image, and audio, we introduce <b>a multi-modal decoupled cross-attention module</b> to fuse multi-modals in a divide-and-conquer manner; 3) We propose <b>a new SFT+Reward alternating training paradigm</b>, enabling the minimal model with <b>1.3B parameters</b> to achieve generation quality comparable to models with 10 times the parameters count. Through these innovations, our work paves the way for efficient, high-quality, and versatile digital human generation, addressing both performance and practicality challenges in the field. Extensive experiments demonstrate that EchoMimicV3 outperforms existing models in both facial and semi-body video generation, providing precise text-based control for creating videos in a wide range of scenarios, such as podcasts, karaoke, dynamic scenes, multi-aspect ratios, and so on.
+    <b><span style="color: #8eadde">EchoMimicV3</span></b> makes human animation <b>Faster</b>, <b>Higher</b> in quality, <b>Stronger</b> in generalization, and makes various tasks together in one model. EchoMimicV3 is an efficient framework that unifies multi-task and multi-modal human animation. At the core of EchoMimicV3 lies a threefold design: <b>a Soup-of-Tasks paradigm, a Soup-of-Modals paradigm, and a novel training and inference strategy</b>. The <b>Soup-of-Tasks</b> leverages multi-task mask inputs and a counter-intuitive task allocation strategy to achieve multi-task gains without multi-model pains. Meanwhile, the <b>Soup-of-Modals</b> introduces a Coupled-Decoupled Multi-Modal Cross Attention module to inject multi-modal conditions, complemented by a Timestep Phase-aware Multi-Modal Allocation mechanism to dynamically modulate multi-modal mixtures. Besides, we propose <b>Negative Direct Preference Optimization and Phase-aware Negative Classifier-Free Guidance</b>, which ensure stable training and inference. Extensive experiments and analyses demonstrate that EchoMimicV3, with a minimal model size of <b>1.3 billion parameters</b>, achieves competitive performance in both quantitative and qualitative evaluations.
   </p>
 </div>
 
@@ -114,46 +114,102 @@ Multi-Task Human Animation</strong></h1>
   <div class="gallery">
     <h3><strong>Chinese Driven Audio</strong></h3>
     <div class="row">
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_man_01.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_man_02.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_man_03.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_man_04.mp4" type="video/mp4">
       </video>
     </div>
     <div class="row">
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_woman_01.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_woman_02.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_woman_04.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="250" height="440" controls>
         <source src="./asserts/demo_videos/chinese/demo_ch_woman_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="230" height="410" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-17-7240.mp4" type="video/mp4">
+      </video>
+      <video width="305" height="410" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-17-7542.mp4" type="video/mp4">
+      </video>
+      <video width="230" height="410" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-17-9425.mp4" type="video/mp4">
+      </video>
+      <video width="230" height="410" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-21-1347.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="287" height="385" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-21-2898.-0026.mp4" type="video/mp4">
+      </video>
+      <video width="216" height="385" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-23-4148.-0005.mp4" type="video/mp4">
+      </video>
+      <video width="270" height="385" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-21-2112.-0008.mp4" type="video/mp4">
+      </video>
+      <video width="223" height="385" controls>
+        <source src="./asserts/demo_videos/chinese/2025-07-21-1876.-0002.mp4" type="video/mp4">
       </video>
     </div>
     <h3><strong>English Driven Audio</strong></h3>
     <div class="row">
-      <video width="250" height="437" controls>
+      <video width="252" height="440" controls>
         <source src="./asserts/demo_videos/english/demo_en_man_01.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="252" height="440" controls>
         <source src="./asserts/demo_videos/english/demo_en_woman_01.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="252" height="440" controls>
         <source src="./asserts/demo_videos/english/demo_en_man_02.mp4" type="video/mp4">
       </video>
-      <video width="250" height="437" controls>
+      <video width="252" height="440" controls>
         <source src="./asserts/demo_videos/english/demo_en_woman_02.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="243" height="425" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-1036.mp4" type="video/mp4">
+      </video>
+      <video width="233" height="425" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-2371.mp4" type="video/mp4">
+      </video>
+      <video width="233" height="425" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-3927.mp4" type="video/mp4">
+      </video>
+      <video width="286" height="425" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-3945.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="284" height="380" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-4513.mp4" type="video/mp4">
+      </video>
+      <video width="208" height="380" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-7825.mp4" type="video/mp4">
+      </video>
+      <video width="284" height="380" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-6032.mp4" type="video/mp4">
+      </video>
+      <video width="218" height="380" controls>
+        <source src="./asserts/demo_videos/english/2025-07-14-7335.mp4" type="video/mp4">
       </video>
     </div>
     <h3><strong>Singing</strong></h3>
@@ -171,26 +227,77 @@ Multi-Task Human Animation</strong></h1>
         <source src="./asserts/demo_videos/sing/demo_music_04.mp4" type="video/mp4">
       </video>
     </div>
+    <div class="row">
+      <video width="228" height="400" controls>
+        <source src="./asserts/demo_videos/sing/guitar_woman_01.mp4" type="video/mp4">
+      </video>
+      <video width="267" height="400" controls>
+        <source src="./asserts/demo_videos/sing/music_woman_01.mp4" type="video/mp4">
+      </video>
+      <video width="228" height="400" controls>
+        <source src="./asserts/demo_videos/sing/guitar_man_01.mp4" type="video/mp4">
+      </video>
+      <video width="272" height="400" controls>
+        <source src="./asserts/demo_videos/sing/music_man_01.mp4" type="video/mp4">
+      </video>
+    </div>
     <h3><strong>Cartoon</strong></h3>
     <div class="row">
-      <video width="168" height="auto" controls>
+      <video width="195" height="266" controls>
         <source src="./asserts/demo_videos/cartoon/demo_cartoon_01.mp4" type="video/mp4">
       </video>
-      <video width="230" height="auto" controls>
+      <video width="266" height="266" controls>
         <source src="./asserts/demo_videos/cartoon/demo_cartoon_02.mp4" type="video/mp4">
       </video>
-      <video width="230" height="auto" controls>
+      <video width="266" height="266" controls>
         <source src="./asserts/demo_videos/cartoon/demo_cartoon_04.mp4" type="video/mp4">
       </video>
-      <video width="141" height="auto" controls>
+      <video width="266" height="266" controls>
+        <source src="./asserts/demo_videos/cartoon/demo_cartoon_03.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="203" height="326" controls>
         <source src="./asserts/demo_videos/cartoon/demo_cartoon_05.mp4" type="video/mp4">
       </video>
-      <video width="230" height="auto" controls>
-        <source src="./asserts/demo_videos/cartoon/demo_cartoon_03.mp4" type="video/mp4">
+      <video width="191" height="326" controls>
+        <source src="./asserts/demo_videos/cartoon/2025-07-14-8644.mp4" type="video/mp4">
+      </video>
+      <video width="230" height="326" controls>
+        <source src="./asserts/demo_videos/cartoon/2025-07-14-7028.mp4" type="video/mp4">
+      </video>
+      <video width="188" height="326" controls>
+        <source src="./asserts/demo_videos/cartoon/2025-07-14-1942.mp4" type="video/mp4">
+      </video>
+      <video width="188" height="326" controls>
+        <source src="./asserts/demo_videos/cartoon/2025-07-14-7113.mp4" type="video/mp4">
       </video>
     </div>
   </div>
 </div>
+
+<div class="content">
+  <h2 style="text-align: center;"><strong>Comparison</strong></h2>
+  <div class="gallery">
+    <div class="row">
+      <video width="500" height="auto" controls>
+        <source src="./asserts/demo_videos/comparison/compare_01.mp4" type="video/mp4">
+      </video>
+      <video width="500" height="auto" controls>
+        <source src="./asserts/demo_videos/comparison/compare_02.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="row">
+      <video width="500" height="auto" controls>
+        <source src="./asserts/demo_videos/comparison/compare_03.mp4" type="video/mp4">
+      </video>
+      <video width="500" height="auto" controls>
+        <source src="./asserts/demo_videos/comparison/compare_04.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
 <div class="content">
   <h2 style="text-align:center; margin: 0 auto;"><strong>BibTex</strong></h2>
   <code>@article{meng2025echomimicv3,<br>
